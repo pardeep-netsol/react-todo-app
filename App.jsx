@@ -1,6 +1,7 @@
 import React from 'react';
 import Task from './Task.jsx';
 
+
 var App = React.createClass({
   getInitialState: function(){
   	return{
@@ -34,13 +35,16 @@ var App = React.createClass({
   },
 
   moveInTodo: function(com, e){
+    var arr = []
   	this.state.completed.map(function(c){
   		if(c == com){
   			this.state.tasks.push(c)
-  			this.state.completed.pop(c)
-  		}
+      }
+  		else{
+        arr.push(c)
+      }
   	}.bind(this))
-  	this.setState({tasks: this.state.tasks, completed: this.state.completed})
+  	this.setState({tasks: this.state.tasks, completed: arr})
   },
 
   markAllDone: function(){
@@ -73,7 +77,7 @@ var App = React.createClass({
 	        </div>
 	        <div className="col-md-6">
             <div className="todolist">
-  	          <h1>Already Done</h1>
+  	          <h1>Completed</h1>
               <ul id="done-items" className="list-unstyled">
               {
               	this.state.completed.map(function(com, $index){
@@ -81,6 +85,9 @@ var App = React.createClass({
               	}.bind(this))
               }                
               </ul>
+              <div className="todo-footer">
+                <strong><span className="count-todos"></span></strong>{this.state.completed.length} Items Done
+              </div>
             </div>
 	        </div>
 		    </div>
